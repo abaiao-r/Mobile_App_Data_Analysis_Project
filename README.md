@@ -2,9 +2,8 @@
 This initiative involves a comprehensive exploration of mobile app trends using datasets from Google Play and the App Store. By analyzing genres, categories, and user ratings, we aim to reveal critical patterns.
 
 ## Introduction
-As data analysts working for a mobile app development company, we are on a mission to enhance our app offerings for both the Android (Google Play) and iOS (App Store) platforms. The focus is on creating free-to-download apps that generate revenue through in-app advertisements. The success of our apps relies heavily on user engagement with these ads, making it crucial for us to understand user preferences and market trends.
 
-In this project, we will delve into datasets from the Google Play Store and the Apple App Store. Our objective is to uncover patterns and trends by analyzing factors such as app genres, categories, and user ratings. By doing so, we aim to identify key attributes that correlate with higher user engagement. The ultimate goal is to provide valuable insights for our developers, empowering them to make informed decisions about the types of apps that are likely to attract a larger user base. This data-driven approach is essential in the competitive landscape of mobile app development.
+In this project, we will delve into datasets from the Google Play Store and the Apple App Store. The objective of this project is to analyze datasets for apps available on both the Google Play Store and Apple Store. The focus is on identifying characteristics that contribute to higher user attraction, as the revenue model relies on in-app ads for free downloads. In essence, the goal is to help developers discern the types of apps that are more likely to garner increased user engagement and, consequently, higher revenue through ad interactions.
 
 ## Key Points
 
