@@ -6,10 +6,9 @@
 #    By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 18:14:32 by abaiao-r          #+#    #+#              #
-#    Updated: 2024/01/27 21:07:31 by andrefranci      ###   ########.fr        #
+#    Updated: 2024/01/28 00:02:37 by andrefranci      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 # csv is a built-in module in python that allows us to read and write to csv 
 # files
@@ -50,8 +49,8 @@ def open_csv(file_name):
         print(f"Error: {e}");
         return (None);
     
-    csv_reader = csv.reader(csv_file);
-    data = list(csv_reader);
+    csv_reader = csv.reader(csv_file); 
+    data = list(csv_reader); # transform the csv_reader into a list
     data_header = data[0];
     data = data[1:];
     csv_file.close();
@@ -96,8 +95,8 @@ google_play_store_data, google_play_store_header = open_csv(google_play_store_fi
 apple_store_data, apple_store_header = open_csv(apple_store_file);
 
 # print the headers and datasets
-#print_headers_and_datasets(google_play_store_header, google_play_store_data, "Google Play Store");
-#print_headers_and_datasets(apple_store_header, apple_store_data, "Apple Store");
+print_headers_and_datasets(google_play_store_header, google_play_store_data, "Google Play Store");
+print_headers_and_datasets(apple_store_header, apple_store_data, "Apple Store");
 
 
 # Data cleaning
@@ -249,5 +248,139 @@ apple_store_data_cleaned = check_row_and_delete(apple_store_data, apple_store_he
 print_headers_and_datasets(google_play_store_header, google_play_store_data_cleaned, "Google Play Store");
 print_headers_and_datasets(apple_store_header, apple_store_data_cleaned, "Apple Store");
 
+# Data analysis
+
+# We'll build two functions we can use to analyze the frequency tables:
+
+# freq_table() function: generates a frequency table for any column we want in
+# our dataset
+# dataset: list of lists
+# index: integer that represents the index of the list that we want to check
+# return: a dictionary that represents the frequency table
+def freq_table(dataset, index):
+    freq_table = {};
+    total = 0;
+    for i in dataset:
+        total += 1;
+        if (i[index] in freq_table):
+            freq_table[i[index]] += 1;
+        else:
+            freq_table[i[index]] = 1;
+    for i in freq_table:
+        freq_table[i] = (freq_table[i] / total) * 100;
+    return (freq_table);
+
+
+
+#Another function we can use to display the percentages in a descending order
+# is display_table() function:
+# dataset: list of lists
+# index: integer that represents the index of the list that we want to check
+# return: nothing, just prints the frequency table in a descending order
+def display_table(dataset, index):
+    table = freq_table(dataset, index);
+    table_display = [];
+    for i in table:
+        key_val_as_tuple = (table[i], i);
+        table_display.append(key_val_as_tuple);
+    table_sorted = sorted(table_display, reverse=True);
+    for i in table_sorted:
+        print(i[1], ":", i[0]);
         
-                    
+# print the frequency tables of the genres and prime genres of the cleaned 
+# datasets
+print("Google Play Store - Genres: \n");
+# look for the index of the genres in google_play_store_header ("Genres" or  
+# "prime_genre" and "Category")
+index_genres = google_play_store_header.index("Genres");
+index_prime_genre = apple_store_header.index("prime_genre");
+index_category = google_play_store_header.index("Category");
+index_installs = google_play_store_header.index("Installs");
+
+# display the frequency tables of the genres and prime genres of the cleaned 
+# datasets
+print("Google Play Store - Genres: \n");
+display_table(google_play_store_data_cleaned, index_genres);
+print("\n");
+display_table(google_play_store_data_cleaned, index_category);
+print("\n");
+print("Apple Store - Prime Genres: \n");
+display_table(apple_store_data_cleaned, index_prime_genre);
+        
+
+# isolate the apps of each genre
+
+genre_freq_table = freq_table(apple_store_data_cleaned, index_prime_genre);
+
+# avg_nbr_of_user_ratings_per_genre() function: calculates the average number of
+# user ratings per genre
+# dataset: list of lists
+# header: list of strings
+# index: integer that represents the index of the list that we want to check
+# return: nothing, just prints the average number of user ratings per genre
+def avg_nbr_of_user_ratings_per_genre(dataset, header, index):
+    genre_freq_table = freq_table(dataset, index);
+    avg_nbr_of_user_ratings_per_genre = {};
+    for i in genre_freq_table:
+        total = 0;
+        len_genre = 0;
+        for j in dataset:
+            if (j[index] == i):
+                total += float(j[header.index("rating_count_tot")]);
+                len_genre += 1;
+        avg_nbr_of_user_ratings_per_genre[i] = total / len_genre;
+    return (avg_nbr_of_user_ratings_per_genre);
+
+# print the average number of user ratings per genre
+print("\n");
+print("Average number of user ratings per genre in AppStore: \n");
+apple_store_data_avg_nbr_rating_per_genre = sorted(avg_nbr_of_user_ratings_per_genre(apple_store_data_cleaned, apple_store_header, index_prime_genre).items(), key=lambda x: x[1], reverse=True);
+print(apple_store_data_avg_nbr_rating_per_genre);
+print_separator();
+
+
+# avg_installs_per_category() function: calculates the average number of installs
+# per category
+# dataset: list of lists
+# index_category: integer that represents the index of the list that we want to check
+# index_installs: integer that represents the index of the list that we want to check
+# return: nothing, just prints the average number of installs per category
+def avg_installs_per_category(dataset, index_category, index_installs):
+    # Create a frequency table for the Category column
+    category_freq_table = freq_table(dataset, index_category)
+    category_avg_nbr_installs = {}
+
+    # For each category...
+    for category in category_freq_table:
+        total = 0  # Sum of installs specific to each genre
+        len_category = 0  # Number of apps specific to each genre
+
+        # For each app...
+        for app in dataset:
+            category_app = app[index_category]
+            
+            # If the app's category matches the current category...
+            if category_app == category:
+                n_installs = app[index_installs]
+                n_installs = n_installs.replace(',', '')
+                n_installs = n_installs.replace('+', '')
+                total += float(n_installs)
+                len_category += 1
+
+        # Compute the average number of installs
+        avg_n_installs = total / len_category
+        category_avg_nbr_installs[category] = avg_n_installs;
+    return (category_avg_nbr_installs);
+
+
+# Call the function
+avg_installs_per_category(google_play_store_data_cleaned, index_category, index_installs);
+
+# print the average number of installs per category for the Google Play Store
+print("\n");
+print("Average number of installs per category in Google Play Store: \n");
+google_play_store_data_avg_nbr_installs_per_category = sorted(avg_installs_per_category(google_play_store_data_cleaned, index_category, index_installs).items(), key=lambda x: x[1], reverse=True);
+print_separator();
+
+               
+
