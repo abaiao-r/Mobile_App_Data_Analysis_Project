@@ -1,9 +1,9 @@
 # Mobile App Data Analysis Project
-This initiative involves a comprehensive exploration of mobile app trends using datasets from Google Play and the App Store. By analyzing genres, categories, and user ratings, we aim to reveal critical patterns.
+This initiative involves a comprehensive exploration of mobile app trends using datasets from Google Play and the App Store. By analyzing genres, categories, and user ratings, the aim is to reveal critical patterns.
 
 ## Introduction
 
-In this project, we will delve into datasets from the Google Play Store and the Apple App Store. The objective of this project is to analyze datasets for apps available on both the Google Play Store and Apple Store. The focus is on identifying characteristics that contribute to higher user attraction, as the revenue model relies on in-app ads for free downloads. In essence, the goal is to help developers discern the types of apps that are more likely to garner increased user engagement and, consequently, higher revenue through ad interactions.
+The objective of this project is to analyze datasets for apps available on both the Google Play Store and Apple Store. The focus is on identifying characteristics that contribute to higher user attraction, as the revenue model relies on in-app ads for free downloads. In essence, the goal is to help developers discern the types of apps that are more likely to garner increased user engagement and, consequently, higher revenue through ad interactions.
 
 ## Key Points
 
