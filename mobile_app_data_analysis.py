@@ -48,7 +48,7 @@ print_headers_and_datasets(apple_store_header, apple_store_data_cleaned, "Apple 
 
 # We'll build two functions we can use to analyze the frequency tables:
 
-   # print the frequency tables of the genres and prime genres of the cleaned 
+# print the frequency tables of the genres and prime genres of the cleaned 
 # datasets
 print("Google Play Store - Genres: \n");
 # look for the index of the genres in google_play_store_header ("Genres" or  
@@ -57,6 +57,7 @@ index_genres = google_play_store_header.index("Genres");
 index_prime_genre = apple_store_header.index("prime_genre");
 index_category = google_play_store_header.index("Category");
 index_installs = google_play_store_header.index("Installs");
+index_rating_count_tot = apple_store_header.index("rating_count_tot");
 
 # display the frequency tables of the genres and prime genres of the cleaned 
 # datasets
@@ -88,4 +89,78 @@ print_separator();
 
                
 
-# make lists by category
+# split by category
+print("\n");
+print("Google Play Store - split by category: \n");
+google_play_store_data_split_by_category = split_by_column_value(google_play_store_data_cleaned, index_category);
+# only print top 3 of each category
+for i in google_play_store_data_split_by_category:
+    print(i, ":\n");
+    print(google_play_store_data_split_by_category[i][:3]);
+    print("\n");
+print_separator();
+print("\n");
+print("Apple Store - split by prime genre: \n");
+apple_store_data_split_by_prime_genre = split_by_column_value(apple_store_data_cleaned, index_prime_genre);
+# only print top 3 of each category
+for i in apple_store_data_split_by_prime_genre:
+    print(i, ":\n");
+    print(apple_store_data_split_by_prime_genre[i][:3]);
+    print("\n");
+
+#order each category by number of installs
+print("\n");
+print("Google Play Store - order each category by number of installs: \n");
+google_play_store_data_ordered_by_installs = {};
+for i in google_play_store_data_split_by_category:
+    google_play_store_data_ordered_by_installs[i] = sorted(google_play_store_data_split_by_category[i], key=lambda x: float(x[index_installs].replace("+", "").replace(",", "")), reverse=True);
+    print(i, ":\n");
+    print(google_play_store_data_ordered_by_installs[i][:3]);
+    print("\n");
+print_separator();
+print("\n");
+print("Apple Store - order each category by number of installs: \n");
+apple_store_data_ordered_by_installs = {};
+for i in apple_store_data_split_by_prime_genre:
+    apple_store_data_ordered_by_installs[i] = sorted(apple_store_data_split_by_prime_genre[i], key=lambda x: float(x[index_rating_count_tot].replace("+", "").replace(",", "")), reverse=True);
+    print(i, ":\n");
+    print(apple_store_data_ordered_by_installs[i][:3]);
+    print("\n");
+
+# sum of installs per category
+print("\n");
+print("Google Play Store - sum of installs per category: \n");
+google_play_store_data_sum_of_installs_per_category = calculate_total_per_category(google_play_store_data_ordered_by_installs, index_installs);
+for i in google_play_store_data_sum_of_installs_per_category:
+      print(i, ":\n");
+      print(google_play_store_data_sum_of_installs_per_category[i]);
+      print("\n");
+print_separator();
+print("\n");
+print("Apple Store - sum of installs per category: \n");
+apple_store_data_sum_of_installs_per_category = calculate_total_per_category(apple_store_data_ordered_by_installs, index_rating_count_tot);
+for i in apple_store_data_sum_of_installs_per_category:
+        print(i, ":\n");
+        print(apple_store_data_sum_of_installs_per_category[i]);
+        print("\n");
+
+
+#add a column with the app percentage of installs per category (installs / sum of installs per category)
+print("\n");
+print("Google Play Store - add a column with the app percentage of installs per category: \n");
+google_play_store_data_add_percentage = add_percentage_column(google_play_store_data_ordered_by_installs, index_installs);
+for i in google_play_store_data_add_percentage:
+      print(i, ":\n");
+      print(google_play_store_data_add_percentage[i][:3]);
+      print("\n");
+print_separator();
+print("\n");
+print("Apple Store - add a column with the app percentage of installs per category: \n");
+apple_store_data_add_percentage = add_percentage_column(apple_store_data_ordered_by_installs, index_rating_count_tot)
+for i in apple_store_data_add_percentage:
+        print(i, ":\n");
+        print(apple_store_data_add_percentage[i][:3]);
+        print("\n");
+
+
+

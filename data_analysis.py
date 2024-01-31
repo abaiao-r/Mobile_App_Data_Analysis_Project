@@ -99,3 +99,44 @@ def avg_installs_per_category(dataset, index_category, index_installs):
         category_avg_nbr_installs[category] = avg_n_installs;
     return (category_avg_nbr_installs);
 
+def split_by_column_value(data, column_index):
+    splitted_data = {};
+
+    for row in data:
+        column_value = row[column_index];
+
+        if (column_value in splitted_data):
+            splitted_data[column_value].append(row);
+        else:
+            splitted_data[column_value] = [row];
+    return (splitted_data);
+
+def calculate_total_per_category(data_split_by_category, index):
+    total_per_category = {}
+    for category in data_split_by_category:
+        total = 0
+        for item in data_split_by_category[category]:
+            total += float(item[index].replace("+", "").replace(",", ""))
+        total_per_category[category] = total
+    return total_per_category
+
+def calculate_percentage_of_value_per_category(data_split_by_category, index_value):
+    total_per_category = calculate_total_per_category(data_split_by_category, index_value)
+    percentage_of_value_per_category = {}
+    for category in data_split_by_category:
+        percentage_of_value_per_category[category] = []
+        for item in data_split_by_category[category]:
+            percentage = round(float(item[index_value].replace("+", "").replace(",", "")) / total_per_category[category] * 100, 2)
+            percentage_of_value_per_category[category].append([item[0], item[index_value], percentage])
+    return percentage_of_value_per_category
+
+def add_percentage_column(data_split_by_category, index_value):
+    total_per_category = calculate_total_per_category(data_split_by_category, index_value)
+    data_with_percentage = {}
+    for category in data_split_by_category:
+        data_with_percentage[category] = []
+        for item in data_split_by_category[category]:
+            percentage = round(float(item[index_value].replace("+", "").replace(",", "")) / total_per_category[category] * 100, 2)
+            data_with_percentage[category].append(item + [percentage])
+    return data_with_percentage
+
