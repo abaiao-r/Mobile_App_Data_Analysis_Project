@@ -21,10 +21,28 @@ The objective of this project is to analyze datasets for apps available on both 
 
 In the dynamic landscape of mobile app development, understanding user behavior and preferences is crucial for success. By leveraging data analysis techniques, this project aims to equip our development team with valuable insights. These insights will empower them to make informed decisions, ultimately leading to the creation of apps that have the potential to attract a larger user base and maximize ad revenue. This project serves as a comprehensive exploration of the intersection between data analytics and strategic decision-making in the context of mobile app development.
 
+### Data Extraction
+
+In this project two datasets from the Google Play Store and the Apple App Store were used.
+
+These datasets are stored in CSV files, specifically `googleplaystore.csv` and `AppleStore.csv`.
+
+A sript was written to extract this datasets:
+
+1. **Setting up the file paths**: The script starts by setting up the locations of the datasets. These locations are stored in what we call 'file paths'.
+
+2. **Preparing for the data**: The script then sets up 'containers' to hold the datasets and their headers. Headers are the titles of the different categories of data in the datasets.
+
+3. **Opening the datasets**: The script uses a function called `open_csv` to open the datasets. It then stores the data and headers in their respective 'containers'.
+
+4. **Displaying the data**: Finally, the script uses a function called `print_headers_and_datasets` to display the headers and datasets. This allows us to see the data in a structured and organized manner.
+
+This process allow the extraction and view of the data from the Google Play Store and Apple App Store datasets.
+
 
 ### Data Cleaning Process
 
-So far, our focus has been on refining the data to ensure accuracy and relevance. The following steps have been taken during the cleaning process:
+After extracting the data, it is necessary to refine the data to ensure accuracy and relevance. The following steps have been taken during the cleaning process:
 
 1. **Removed Inaccurate Data:** Any entries containing inaccurate information were carefully identified and removed to maintain data integrity.
 
@@ -36,7 +54,7 @@ So far, our focus has been on refining the data to ensure accuracy and relevance
 
 ## Validation Strategy
 
-Our validation strategy for app ideas consists of a three-step process to minimize risks and overhead:
+In this scenario, the strategy for the app ideas consists of a three-step process to minimize risks and overhead:
 
 1. **Build a Minimal Android Version:** Develop a basic Android version of the app and release it on Google Play.
 
@@ -61,7 +79,7 @@ Comparing the two markets, the App Store is dominated by games and entertainment
 
 Based on these frequency tables alone, it's hard to recommend an app profile without additional information such as user ratings, number of installs, and revenue data. The frequency tables reveal the most frequent app genres, but not necessarily what genres have the most users or generate the most revenue.
 
-Remember, these conclusions are based on the number of apps available in each genre, not on their popularity or profitability. To make a recommendation for an app profile, more data and analysis would be needed.
+These assumptions are based on the number of apps available in each genre, not on their popularity or profitability. To make a recommendation for an app profile, more data and analysis would be needed.
 
 ### Most Popular Apps by Genre on the App Store
 
@@ -69,84 +87,58 @@ One way to find out what genres are the most popular (have the most users) is to
 
 Below, we calculate the average number of user ratings per app genre on the App Store:
 
-On average, navigation apps have the highest number of user reviews, but this figure is heavily influenced by Waze and Google Maps, which have close to half a million user reviews together:
+# App Popularity Analysis: Google Play Store and Apple App Store
 
-However, this niche is dominated by a few giants who are almost impossible to compete with. The same pattern applies to social networking apps, where a few big players like Facebook, Pinterest, Skype, etc. dominate the market. The same applies to music apps, where a few big players like Pandora, Spotify, and Shazam dominate the market.
+On average, navigation apps appear to have the highest number of user reviews. However, this figure may be skewed by a few apps with hundreds of thousands of reviews, while others struggle to surpass the 10,000 review threshold.
 
-Our aim is to find popular genres, but navigation, social networking, or music apps might seem more popular than they really are. The average number of ratings seems to be skewed by very few apps that are the giants in their respective markets. These markets seem to show potential, but it's hard to recommend an app profile based on this data alone.
+## Python Script Operations Overview
 
-The genres with the highest average number of user ratings, which could be interpreted as popularity, are 'Navigation', 'Reference', and 'Social Networking'.
+The following Python script performs several operations on the Google Play Store and Apple App Store datasets:
 
-However, creating an app in these genres doesn't guarantee success, as these markets could be dominated by a few big players. For example, the 'Navigation' genre could be heavily influenced by apps like Google Maps and Waze.
+1. **Splitting by Category/Prime Genre:**
+   - Datasets are divided into groups based on the app's category (Google Play Store) or prime genre (Apple App Store).
+   - The top 3 apps from each category or prime genre are printed.
 
-On the other hand, genres like 'Reference', 'Weather', 'Food & Drink', or 'Finance' could be interesting to explore. They have a high average number of user ratings and could offer opportunities for practical apps that serve a purpose, rather than entertainment or social networking apps.
+2. **Ordering by Number of Installs:**
+   - Within each category or prime genre, apps are ordered by the number of installs.
+   - The top 3 apps with the most installs from each category or prime genre are printed.
 
-### Most Popular Apps by Genre on Google Play
+3. **Sum of Installs per Category/Prime Genre:**
+   - The total number of installs is calculated for each category or prime genre and printed.
 
-For the Google Play market, we have data about the number of installs, so we should be able to get a clearer picture about genre popularity. However, the install numbers don't seem precise enough — we can see that most values are open-ended (100+, 1,000+, 5,000+, etc.):
-```
-print(display_table(android_final, 5)) # the Installs columns
-```
-```
-1,000,000+ : 15.726534296028879
-100,000+ : 11.552346570397113
-10,000,000+ : 10.548285198555957
-10,000+ : 10.198555956678701
-1,000+ : 8.393501805054152
-100+ : 6.915613718411552
-5,000,000+ : 6.825361010830325
-500,000+ : 5.561823104693141
-50,000+ : 4.7721119133574
-5,000+ : 4.512635379061372
-10+ : 3.5424187725631766
-500+ : 3.2490974729241873
-50,000,000+ : 2.3014440433213
-100,000,000+ : 2.1322202166064983
+4. **Adding a Column for Percentage of Installs per Category/Prime Genre:**
+   - A new column is added to the datasets, indicating the percentage of installs that each app has within its category or prime genre.
+   - The top 3 apps from each category or prime genre, along with their percentage of installs, are printed.
 
-```
-One problem with this data is that it's not precise. For instance, we don't know whether an app with 100,000+ installs has 100,000 installs, 200,000, or 350,000. However, we don't need very precise data for our purposes — we only want to get an idea which app genres attract the most users, and we don't need perfect precision with respect to the number of users.
+These operations aim to provide insights into the most popular categories or prime genres, identify apps with the highest installs within each category or prime genre, and illustrate the distribution of installs within each category or prime genre.
 
-We're going to leave the numbers as they are, which means that we'll consider that an app with 100,000+ installs has 100,000 installs, and an app with 1,000,000+ installs has 1,000,000 installs, and so on.
+Please note that these analyses are based on available data and assumptions, and the interpretation may be influenced by outliers in the number of user reviews or installs.
 
-To perform computations, however, we'll need to convert each install number to float — this means that we need to remove the commas and the plus characters, otherwise the conversion will fail and raise an error. We'll do this directly in the loop below, where we also compute the average number of installs for each genre (category).
 
-Below, we calculate the average number of installs per app genre for the Google Play data set:
+# Mobile App Analysis: App Store and Google Play
 
-On average, communication apps have the most installs: 38,456,119. This number is heavily influenced by a few apps that have over one billion installs (WhatsApp, Facebook Messenger, Skype, Google Chrome, Gmail, and Hangouts), and a few others with over 100 and 500 million installs:
+## App Store Genres and Popularity
 
-If we removed all the communication apps that have over 100 million installs, the average would be reduced roughly ten times:
+The goal is to identify popular genres, but genres like navigation, social networking, or music might seem more popular due to a few dominant apps. The average number of ratings is skewed by a handful of giants, making it challenging to recommend an app profile based solely on this data.
 
-We see the same pattern for the video players category, which is the runner-up with 24,727,872 installs. The market is dominated by apps like Youtube, Google Play Movies & TV, or MX Player. The pattern is repeated for social apps (where we have giants like Facebook, Instagram, Google+, etc.), photography apps (Google Photos and other popular photo editors), or productivity apps (Microsoft Word, Dropbox, Google Calendar, Evernote, etc.).
+Genres with the highest average number of user ratings ('Navigation', 'Reference', and 'Social Networking') might have dominance by a few big players, like Google Maps and Waze. Genres like 'Reference', 'Weather', 'Food & Drink', or 'Finance' could be interesting, offering opportunities for practical apps rather than entertainment or social networking.
 
-Again, the main concern is that these app genres might seem more popular than they really are. Moreover, these niches seem to be dominated by a few giants who are hard to compete against.
+## Most Popular Apps by Genre on Google Play
 
-The game genre seems pretty popular, but previously we found out this part of the market seems a bit saturated, so we'd like to come up with a different app recommendation if possible.
+For the Google Play market, install numbers provide clearer insights into genre popularity. However, these numbers are not precise, and categories may be influenced by a few giants. Communication apps have the most installs, heavily influenced by apps like WhatsApp and Facebook Messenger. Similarly, video players, social apps, and productivity apps follow the same pattern, dominated by a few major players.
 
-The books and reference genre looks fairly popular as well, with an average number of installs of 8,767,811. It's interesting to explore this in more depth, as we found this genre has some potential to work well on the App Store, and our aim is to recommend an app genre that shows potential for being profitable on both the App Store and Google Play.
+While game genres seem popular, they may be saturated. 'Books and Reference' genre looks promising, showing potential for profitability on both the App Store and Google Play. A deeper exploration reveals that popular apps in this genre are dominated by a few, leaving room for new apps with unique features.
 
-Let's take a look at some of the apps from this genre and their number of installs:
+## App Recommendations
 
-The book and reference genre includes a variety of apps: software for processing and reading ebooks, various collections of libraries, dictionaries, tutorials on programming or languages, etc. It seems there's still a small number of extremely popular apps that skew the average:
+Based on the analysis, building an app around a popular book with additional features like daily quotes, audio versions, quizzes, and discussion forums could be profitable for both markets. The 'Books and Reference' category is a potential choice.
 
-However, it looks like there are only a few very popular apps, so this market still shows potential. Let's try to get some app ideas based on the kind of apps that are somewhere in the middle in terms of popularity (between 1,000,000 and 100,000,000 downloads):
+## Category Analysis on Google Play
 
-This niche seems to be dominated by software for processing and reading ebooks, as well as various collections of libraries and dictionaries, so it's probably not a good idea to build similar apps since there'll be some significant competition.
+Looking at the average number of installs per category in the Google Play Store, categories like 'COMMUNICATION', 'VIDEO_PLAYERS', 'SOCIAL', 'PHOTOGRAPHY', and 'PRODUCTIVITY' have high averages. However, these may be heavily influenced by major apps.
 
-We also notice there are quite a few apps built around the book Quran, which suggests that building an app around a popular book can be profitable. It seems that taking a popular book (perhaps a more recent book) and turning it into an app could be profitable for both the Google Play and the App Store markets. However, it looks like the market is already full of libraries, so we need to add some special features besides the raw version of the book. This might include daily quotes from the book, an audio version of the book, quizzes on the book, a forum where people can discuss the book, etc.
-
-Looking at the average number of installs per category in the Google Play Store, the categories with the highest averages are 'COMMUNICATION', 'VIDEO_PLAYERS', 'SOCIAL', 'PHOTOGRAPHY', and 'PRODUCTIVITY'.
-
-However, it's important to note that these categories might be heavily influenced by a few giants (like WhatsApp in 'COMMUNICATION', YouTube in 'VIDEO_PLAYERS', Facebook in 'SOCIAL', Google Photos in 'PHOTOGRAPHY', and Google Drive in 'PRODUCTIVITY').
-
-If we aim to find a category that is less dominated by major apps and thus potentially easier to enter, we might look at categories like 'ART_AND_DESIGN', 'AUTO_AND_VEHICLES', 'BEAUTY', 'BOOKS_AND_REFERENCE', and 'EDUCATION'.
-
-For example, 'BOOKS_AND_REFERENCE' could be a promising category. An app in this category could be profitable on both Google Play and the App Store, as it could appeal to a wide audience and could be monetized through in-app purchases and ads.
-
-Please note that this is a high-level analysis and a more detailed analysis might be needed to make a final decision.  
+For a less dominated category, exploring 'ART_AND_DESIGN', 'AUTO_AND_VEHICLES', 'BEAUTY', 'BOOKS_AND_REFERENCE', and 'EDUCATION' could be worthwhile. 'BOOKS_AND_REFERENCE' stands out as a promising category with potential for a wide audience.
 
 ## Conclusion
 
-In this project, we analyzed data about the App Store and Google Play mobile apps with the goal of recommending an app profile that can be profitable for both markets.
-
-We concluded that taking a popular book (perhaps a more recent book) and turning it into an app could be profitable for both the Google Play and the App Store markets. The markets are already full of libraries, so we need to add some special features besides the raw version of the book. This might include daily quotes from the book, an audio version of the book, quizzes on the book, a forum where people can discuss the book, etc.
-
+In conclusion, turning a popular book into an app, enriched with additional features, is recommended for profitability on both App Store and Google Play. The 'Books and Reference' category offers potential, but a more detailed analysis may be needed for a final decision.

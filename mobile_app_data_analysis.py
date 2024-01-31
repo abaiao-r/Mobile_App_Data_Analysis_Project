@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 18:14:32 by abaiao-r          #+#    #+#              #
-#    Updated: 2024/01/30 15:35:28 by abaiao-r         ###   ########.fr        #
+#    Updated: 2024/01/31 23:12:40 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,13 +46,11 @@ print_headers_and_datasets(apple_store_header, apple_store_data_cleaned, "Apple 
 
 # Data analysis
 
-# We'll build two functions we can use to analyze the frequency tables:
+# Data analysis
 
-# print the frequency tables of the genres and prime genres of the cleaned 
-# datasets
-print("Google Play Store - Genres: \n");
-# look for the index of the genres in google_play_store_header ("Genres" or  
-# "prime_genre" and "Category")
+# look for the index of the genres in google_play_store_header/apple_store_header ("Genres" or  
+# "prime_genre", "Category", "installs" and "rating_count_tot") 
+# Since, AppleStore dataset does not provide information about the number of installs, we assume that the app with the most reviews would be also the app with most installs.
 index_genres = google_play_store_header.index("Genres");
 index_prime_genre = apple_store_header.index("prime_genre");
 index_category = google_play_store_header.index("Category");
@@ -77,17 +75,14 @@ apple_store_data_avg_nbr_rating_per_genre = sorted(avg_nbr_of_user_ratings_per_g
 print(apple_store_data_avg_nbr_rating_per_genre);
 print_separator();
 
-
-# Call the function
-avg_installs_per_category(google_play_store_data_cleaned, index_category, index_installs);
-
-# print the average number of installs per category for the Google Play Store
+# print the average number of user ratings per genre in Google Play Store
 print("\n");
-print("Average number of installs per category in Google Play Store: \n");
-google_play_store_data_avg_nbr_installs_per_category = sorted(avg_installs_per_category(google_play_store_data_cleaned, index_category, index_installs).items(), key=lambda x: x[1], reverse=True);
+print("Average number of user ratings per genre in Google Play Store: \n");
+google_play_store_data_avg_nbr_rating_per_genre = sorted(avg_installs_per_category(google_play_store_data_cleaned, index_category, index_installs).items(), key=lambda x: x[1], reverse=True);
+print(google_play_store_data_avg_nbr_rating_per_genre);
 print_separator();
 
-               
+
 
 # split by category
 print("\n");

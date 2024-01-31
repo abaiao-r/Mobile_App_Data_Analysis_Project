@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 15:28:38 by abaiao-r          #+#    #+#              #
-#    Updated: 2024/01/31 22:42:55 by abaiao-r         ###   ########.fr        #
+#    Updated: 2024/01/30 15:35:13 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,6 @@ def avg_installs_per_category(dataset, index_category, index_installs):
         category_avg_nbr_installs[category] = avg_n_installs;
     return (category_avg_nbr_installs);
 
-# split_by_column_value(): 
 def split_by_column_value(data, column_index):
     splitted_data = {};
 
@@ -131,8 +130,6 @@ def calculate_percentage_of_value_per_category(data_split_by_category, index_val
             percentage_of_value_per_category[category].append([item[0], item[index_value], percentage])
     return percentage_of_value_per_category
 
-
-#
 def add_percentage_column(data_split_by_category, index_value):
     total_per_category = calculate_total_per_category(data_split_by_category, index_value)
     data_with_percentage = {}
