@@ -21,6 +21,14 @@ The objective of this project is to analyze datasets for apps available on both 
 
 In the dynamic landscape of mobile app development, understanding user behavior and preferences is crucial for success. By leveraging data analysis techniques, this project aims to equip our development team with valuable insights. These insights will empower them to make informed decisions, ultimately leading to the creation of apps that have the potential to attract a larger user base and maximize ad revenue. This project serves as a comprehensive exploration of the intersection between data analytics and strategic decision-making in the context of mobile app development.
 
+## How to Run the Code
+
+Requirements:
+    - Python 3.8.5
+    - on the termianl: python3 mobile_app_data_analysis.py
+
+or you can check the code on the jupyter notebook file(/.ipynb_checkpoints/mobile_app_data_analysis_jn-checkpoint.ipynb)
+
 ### Data Extraction
 
 In this project two datasets from the Google Play Store and the Apple App Store were used.
